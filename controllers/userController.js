@@ -131,7 +131,7 @@ exports.home = (req, res) => {
       description: "Thank you for connecting to our server API.",
       details: {
         company: "Awesome Corp",
-        location: "Somewhere in the digital universe",
+        location: "Somewhere in the digital universe make it difrent",
       },
     },
   };
