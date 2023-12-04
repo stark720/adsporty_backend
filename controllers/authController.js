@@ -77,6 +77,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     // userAgent,
   } = req.body;
 
+  console.log(req.body);
+
   // console.log(req);
   const userAgent = req.headers["user-agent"];
   // console.log(userAgent);
@@ -91,6 +93,9 @@ exports.signup = catchAsync(async (req, res, next) => {
       new AppError("User with this device information already exists.", 400)
     );
   }
+
+  // console.log(req);
+  // console.log(req.body.userAgent);
 
   // console.log(name, username, phonenumber, referralID, password);
 

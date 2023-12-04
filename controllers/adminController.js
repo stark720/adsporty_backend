@@ -711,9 +711,9 @@ exports.approveTransaction = catchAsync(async (req, res, next) => {
       };
 
       if (transaction.selected_wallet === "games_wallet") {
-        user.games_wallet.balance += parseInt(transaction.amount);
+        user.games_wallet.balance += parseFloat(transaction.amount);
       } else if (transaction.selected_wallet === "ads_wallet") {
-        user.ads_wallet.balance += parseInt(transaction.amount);
+        user.ads_wallet.balance += parseFloat(transaction.amount);
       }
     }
     user.notifications.push(newNotfication);
