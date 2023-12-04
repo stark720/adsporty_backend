@@ -4,7 +4,7 @@
   "description": "Backend",
   "main": "server.js",
   "scripts": {
-    "start":"node server.js"
+    "start":"node server.js",
    
         "production": "export NODE_ENV=production && nodemon server",
     "build": "node server.js"
