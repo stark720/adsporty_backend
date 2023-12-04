@@ -6,7 +6,7 @@
   "scripts": {
     "start": "export NODE_ENV=development && nodemon server",
         "production": "export NODE_ENV=production && nodemon server",
-    "build": "export NODE_ENV=production && server"
+    "build": "export NODE_ENV=production && node server.js"
   },
   "author": "",
   "license": "ISC",
