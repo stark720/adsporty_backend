@@ -528,7 +528,7 @@ exports.adGameRevenue = catchAsync(async (req, res) => {
   res.json({ message: "Game revenue updated successfully", data: winningTeam });
 });
 
-// Main Sending
+// Mail Sending
 exports.mailSending = async (req, res) => {
   // console.log(req.body);
   // console.log(process.env.EMAIL, process.env.PASSWORD);
