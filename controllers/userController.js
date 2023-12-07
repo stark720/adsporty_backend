@@ -295,8 +295,8 @@ exports.transferBalanceToAds = catchAsync(async (req, res, next) => {
   }
 
   // Deduct the balance from games_wallet and add it to ads_wallet
-  user.games_wallet.balance -= parseInt(amountToTransfer);
-  user.ads_wallet.balance += parseInt(amountToTransfer);
+  user.games_wallet.balance -= parseFloat(amountToTransfer);
+  user.ads_wallet.balance += parseFloat(amountToTransfer);
 
   const currentDate = new Date(); // Get the current date and time
 
