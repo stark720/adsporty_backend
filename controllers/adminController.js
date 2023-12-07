@@ -593,9 +593,11 @@ exports.approveTransaction = catchAsync(async (req, res, next) => {
         message: `Your deposit request of $${transaction.amount} has been approved!`,
       };
       if (transaction.selected_wallet === "games_wallet") {
-        user.games_wallet.balance += parseInt(transaction.amount);
+        const depositAmount = parseFloat(transaction.amount);
+        user.games_wallet.balance += depositAmount;
       } else if (transaction.selected_wallet === "ads_wallet") {
-        user.ads_wallet.balance += parseInt(transaction.amount);
+        const depositAmount = parseFloat(transaction.amount);
+        user.ads_wallet.balance += depositAmount;
       }
     } else if (transaction.transaction_type === "withdraw") {
       newNotfication = {
@@ -610,7 +612,6 @@ exports.approveTransaction = catchAsync(async (req, res, next) => {
       //   user.ads_wallet.balance -= parseInt(transaction.amount);
       // }
     }
-
     user.notifications.push(newNotfication);
 
     await user.save();
