@@ -43,64 +43,66 @@ const job = schedule.scheduleJob("59 23 * * *", async function () {
 
         // console.log("Bonus should be go", RefferBonus);
 
-        const newTransaction = {
-          date: formattedDate,
-          selected_wallet: "ads_wallet",
-          amount: RefferBonus,
-          payment_method: "automation",
-          payment_phone_number: "",
-          trx_id: "",
-          transaction_status: "approved",
-          transaction_type: "Refferal Received",
-        };
+        if (RefferBonus > 0) {
+          const newTransaction = {
+            date: formattedDate,
+            selected_wallet: "ads_wallet",
+            amount: RefferBonus,
+            payment_method: "automation",
+            payment_phone_number: "",
+            trx_id: "",
+            transaction_status: "approved",
+            transaction_type: "Refferal Received",
+          };
 
-        referrerUser.transactionHistory.push(newTransaction);
-        referrerUser.totalEarnings += RefferBonus;
-        referrerUser.totalReferralEarnings += RefferBonus;
-        referrerUser.ads_wallet.balance += RefferBonus;
-        referrerUser.todaysEarning.earning_from_referral += RefferBonus;
+          referrerUser.transactionHistory.push(newTransaction);
+          referrerUser.totalEarnings += RefferBonus;
+          referrerUser.totalReferralEarnings += RefferBonus;
+          referrerUser.ads_wallet.balance += RefferBonus;
+          referrerUser.todaysEarning.earning_from_referral += RefferBonus;
 
-        await referrerUser.save();
+          await referrerUser.save();
 
-        const newTransactionUser = {
-          date: formattedDate,
-          selected_wallet: "ads_wallet",
-          amount: RefferBonus,
-          payment_method: "automation",
-          payment_phone_number: "",
-          trx_id: "",
-          transaction_status: "approved",
-          transaction_type: "Refferal Sent",
-        };
+          const newTransactionUser = {
+            date: formattedDate,
+            selected_wallet: "ads_wallet",
+            amount: RefferBonus,
+            payment_method: "automation",
+            payment_phone_number: "",
+            trx_id: "",
+            transaction_status: "approved",
+            transaction_type: "Refferal Sent",
+          };
 
-        await User.findOneAndUpdate(
-          { _id: user._id },
-          {
-            $inc: {
-              "ads_wallet.balance": -RefferBonus,
+          await User.findOneAndUpdate(
+            { _id: user._id },
+            {
+              $inc: {
+                "ads_wallet.balance": -RefferBonus,
+              },
+              $set: {
+                "todaysEarning.earning_from_ads": 0,
+                "todaysEarning.earning_from_games": 0,
+                "todaysEarning.earning_from_referral": 0,
+              },
             },
-            $set: {
-              "todaysEarning.earning_from_ads": 0,
-              "todaysEarning.earning_from_games": 0,
-              "todaysEarning.earning_from_referral": 0,
-            },
-          },
-          { new: true }
-        );
+            { new: true }
+          );
 
-        user.transactionHistory.push(newTransactionUser);
+          user.transactionHistory.push(newTransactionUser);
 
-        const indexToRemove = user.trackAdRevenue.findIndex(
-          (item) => item.date === formattedDate
-        );
+          const indexToRemove = user.trackAdRevenue.findIndex(
+            (item) => item.date === formattedDate
+          );
 
-        if (indexToRemove !== -1) {
-          user.trackAdRevenue.splice(indexToRemove, 1);
+          if (indexToRemove !== -1) {
+            user.trackAdRevenue.splice(indexToRemove, 1);
+          }
+
+          // console.log("The user is", user);
+
+          await user.save();
         }
-
-        // console.log("The user is", user);
-
-        await user.save();
       } else {
         // console.log("This user has not a referel id");
         await User.findOneAndUpdate(
