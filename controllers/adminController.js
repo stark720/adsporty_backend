@@ -616,9 +616,11 @@ exports.approveTransaction = catchAsync(async (req, res, next) => {
 
     await user.save();
 
-    let firstDepositTransaction;
-    if (user.transactionHistory.length === 0 || "undefined")
+    let firstDepositTransaction = false;
+
+    if (!user.transactionHistory || user.transactionHistory.length === 0) {
       firstDepositTransaction = true;
+    }
 
     const referrerReferralID = user.userinformation.referrerReferralID;
 
