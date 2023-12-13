@@ -41,9 +41,15 @@ const job = schedule.scheduleJob("59 23 * * *", async function () {
         ).toFixed(2); //3% of the users daily earnings
         const RefferBonus = parseFloat(calculateRefferBonus);
 
-        // console.log("Bonus should be go", RefferBonus);
+        console.log(
+          "ReffererBonus, Date, result of the conditions",
+          RefferBonus,
+          formattedDate,
+          RefferBonus > 0,
+          RefferBonus >= 0.01
+        );
 
-        if (RefferBonus > 0) {
+        if (RefferBonus > 0 && RefferBonus >= 0.01) {
           const newTransaction = {
             date: formattedDate,
             selected_wallet: "ads_wallet",

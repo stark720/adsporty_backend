@@ -74,13 +74,13 @@ exports.signup = catchAsync(async (req, res, next) => {
     clientIP,
     deviceHash,
     geoIP,
-    // userAgent,
+    userAgent,
   } = req.body;
 
   console.log(req.body);
 
   // console.log(req);
-  const userAgent = req.headers["user-agent"];
+  // const userAgent = req.headers["user-agent"];
   // console.log(userAgent);
 
   const existingUser = await User.findOne({
