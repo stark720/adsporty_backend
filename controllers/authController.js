@@ -83,16 +83,16 @@ exports.signup = catchAsync(async (req, res, next) => {
   // const userAgent = req.headers["user-agent"];
   // console.log(userAgent);
 
-  const existingUser = await User.findOne({
-    "deviceInformations.clientIP": clientIP,
-    "deviceInformations.deviceHash": deviceHash,
-  });
+  // const existingUser = await User.findOne({
+  //   "deviceInformations.clientIP": clientIP,
+  //   "deviceInformations.deviceHash": deviceHash,
+  // });
 
-  if (existingUser) {
-    return next(
-      new AppError("User with this device information already exists.", 400)
-    );
-  }
+  // if (existingUser) {
+  //   return next(
+  //     new AppError("User with this device information already exists.", 400)
+  //   );
+  // }
 
   // console.log(req);
   // console.log(req.body.userAgent);
